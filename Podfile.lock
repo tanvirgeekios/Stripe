@@ -1,0 +1,22 @@
+PODS:
+  - Alamofire (5.4.1)
+  - Stripe (21.3.1):
+    - Stripe/Stripe3DS2 (= 21.3.1)
+  - Stripe/Stripe3DS2 (21.3.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - Stripe
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Stripe
+
+SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Stripe: 326a2160ac541eeffafb8b1aa0c9712e3ce8cec7
+
+PODFILE CHECKSUM: 9b13e75421cbf18239b44cffb16decc54b401837
+
+COCOAPODS: 1.10.0
