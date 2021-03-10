@@ -7,6 +7,7 @@
 
 import UIKit
 import Stripe
+import PassKit
 
 class ViewController: UIViewController, STPPaymentContextDelegate {
     
@@ -18,12 +19,12 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let config = STPPaymentConfiguration.shared
-        //config.additionalPaymentOptions = .applePay
+        config.applePayEnabled = true
         config.shippingType = .shipping
         config.requiredShippingAddressFields = Set<STPContactField>(arrayLiteral: STPContactField.name,STPContactField.emailAddress,STPContactField.phoneNumber,STPContactField.postalAddress)
         config.companyName = "Testing XYZ"
         customerContext = STPCustomerContext(keyProvider: MyAPIClient())
-        paymentContext =  STPPaymentContext(customerContext: customerContext!, configuration: config, theme: .default())
+        paymentContext =  STPPaymentContext(customerContext: customerContext!, configuration: config, theme: .defaultTheme)
         self.paymentContext?.delegate = self
         self.paymentContext?.hostViewController = self
         self.paymentContext?.paymentAmount = 5000
@@ -82,7 +83,7 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
         
-        MyAPIClient.createPaymentIntent(amount: (Double(paymentContext.paymentAmount+Int((paymentContext.selectedShippingMethod?.amount)!))), currency: "usd",customerId: "cus_GRbIU4MmLbqvL5") { (response) in
+        MyAPIClient.createPaymentIntent(amount: (Double(paymentContext.paymentAmount+Int(truncating: (paymentContext.selectedShippingMethod?.amount)!))), currency: "usd",customerId: "cus_J571UGs6nwtzwC") { (response) in
             switch response {
             case .success(let clientSecret):
                 // Assemble the PaymentIntent parameters
@@ -90,7 +91,7 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
                 paymentIntentParams.paymentMethodId = paymentResult.paymentMethod?.stripeId
                 paymentIntentParams.paymentMethodParams = paymentResult.paymentMethodParams
                 
-                STPPaymentHandler.shared().confirmPayment(withParams: paymentIntentParams, authenticationContext: paymentContext) { status, paymentIntent, error in
+                STPPaymentHandler.shared().confirmPayment(paymentIntentParams, with: paymentContext) { status, paymentIntent, error in
                     switch status {
                     case .succeeded:
                         // Your backend asynchronously fulfills the customer's order, e.g. via webhook

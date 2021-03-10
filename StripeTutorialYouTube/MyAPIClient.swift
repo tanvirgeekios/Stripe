@@ -24,9 +24,11 @@ class MyAPIClient:NSObject,STPCustomerEphemeralKeyProvider {
         AF.request(URL(string: K.baseUrl+K.ephemeralKey)!, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: [:]).responseJSON { (apiResponse) in
                 let data = apiResponse.data
                 guard let json = ((try? JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any]) as [String : Any]??) else {
+                    print("Error: \(apiResponse.error)")
                     completion(nil, apiResponse.error)
                     return
                 }
+                print("Json:\(json)")
                 completion(json, nil)
                 
             }
