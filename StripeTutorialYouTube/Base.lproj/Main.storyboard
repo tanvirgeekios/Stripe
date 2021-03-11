@@ -40,18 +40,28 @@
                                     <action selector="payNow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cbZ-RT-LMG"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="TL3-uD-CbB">
+                                <rect key="frame" x="132" y="384" width="151" height="110"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6tF-RV-fdK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="122" id="0w5-18-OFv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6tF-RV-fdK" secondAttribute="trailing" constant="105" id="1hM-J9-m6Z"/>
+                            <constraint firstItem="TL3-uD-CbB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="4ez-8Q-5Ia"/>
                             <constraint firstItem="HZH-SS-SjQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="A0I-Ji-Vnb"/>
                             <constraint firstItem="6tF-RV-fdK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="256" id="C40-Gy-gdS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TL3-uD-CbB" secondAttribute="trailing" constant="131" id="CX9-Xh-7w6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HZH-SS-SjQ" secondAttribute="bottom" constant="267" id="GgC-Zf-RyH"/>
                             <constraint firstItem="6tF-RV-fdK" firstAttribute="trailing" secondItem="HZH-SS-SjQ" secondAttribute="trailing" id="IUg-as-mfN"/>
+                            <constraint firstItem="TL3-uD-CbB" firstAttribute="top" secondItem="6tF-RV-fdK" secondAttribute="bottom" constant="8" id="fy2-Cr-bTu"/>
+                            <constraint firstItem="HZH-SS-SjQ" firstAttribute="top" secondItem="TL3-uD-CbB" secondAttribute="bottom" constant="8" id="pkp-ap-doK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="TL3-uD-CbB" id="Vf8-SR-cSN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

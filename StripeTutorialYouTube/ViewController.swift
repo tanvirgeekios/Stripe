@@ -9,27 +9,37 @@ import UIKit
 import Stripe
 import PassKit
 
-class ViewController: UIViewController, STPPaymentContextDelegate {
-    
+
+class ViewController: UIViewController, STPPaymentContextDelegate,showSpinnerDelegate {
+
     var customerContext : STPCustomerContext?
     var paymentContext : STPPaymentContext?
     var isSetShipping = true
+    var showspinner = true
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        activityIndicator.startAnimating()
         let config = STPPaymentConfiguration.shared
-        config.applePayEnabled = true
+        //config.applePayEnabled = true
         config.shippingType = .shipping
         config.requiredShippingAddressFields = Set<STPContactField>(arrayLiteral: STPContactField.name,STPContactField.emailAddress,STPContactField.phoneNumber,STPContactField.postalAddress)
         config.companyName = "Testing XYZ"
-        customerContext = STPCustomerContext(keyProvider: MyAPIClient())
+        let myapiClient = MyAPIClient()
+        myapiClient.delegate = self
+        customerContext = STPCustomerContext(keyProvider: myapiClient)
         paymentContext =  STPPaymentContext(customerContext: customerContext!, configuration: config, theme: .defaultTheme)
         self.paymentContext?.delegate = self
         self.paymentContext?.hostViewController = self
         self.paymentContext?.paymentAmount = 5000
     }
     
+    func spinnerShouldStop() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
     
     @IBAction func createCustomerPressed(_ sender: UIButton) {
         MyAPIClient.createCustomer()
@@ -41,7 +51,7 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
     
     //DelegateFunctions
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        
+        print("IN payment context did change result")
         if paymentContext.selectedPaymentOption != nil && isSetShipping{
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 paymentContext.presentShippingViewController()
@@ -50,12 +60,16 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
         
         if paymentContext.selectedShippingMethod != nil && !isSetShipping {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                
+                print("This is the ultimate FINAL")
                 self.paymentContext?.requestPayment()
             }
         }
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didUpdateShippingAddress address: STPAddress, completion: @escaping STPShippingMethodsCompletionBlock) {
+        
+        isSetShipping = false
         
         let upsGround = PKShippingMethod()
         upsGround.amount = 0
@@ -68,7 +82,7 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
         fedEx.label = "FedEx"
         fedEx.detail = "Arrives tomorrow"
         fedEx.identifier = "fedex"
-
+        print("IN didupdate shipping address result")
         if address.country == "US" {
             completion(.valid, nil, [upsGround, fedEx], upsGround)
         }
@@ -82,6 +96,8 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
+        
+        print("IN Didpayment result")
         
         MyAPIClient.createPaymentIntent(amount: (Double(paymentContext.paymentAmount+Int(truncating: (paymentContext.selectedShippingMethod?.amount)!))), currency: "usd",customerId: "cus_J571UGs6nwtzwC") { (response) in
             switch response {
@@ -113,7 +129,15 @@ class ViewController: UIViewController, STPPaymentContextDelegate {
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        
+        switch status {
+            case .error:
+                print("Payment Not successfull")
+            case .success:
+                print("Payment Successfull")
+            case .userCancellation:
+                print("User Cancelled")
+                return // Do nothing
+        }
     }
 }
 
