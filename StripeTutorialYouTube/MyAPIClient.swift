@@ -10,7 +10,7 @@ import Alamofire
 import Stripe
 
 struct K {
-    static let baseUrl:String = "http://192.168.0.100:8888/StripeBackend/"
+    static let baseUrl:String = "http://192.168.0.102:8888/StripeBackend/"
     static let createCustomer:String = "createcustomer.php"
     static let ephemeralKey:String = "empheralkey.php"
     static let createPaymentIntent = "createpaymentintent.php"

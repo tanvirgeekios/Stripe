@@ -16,11 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-RV-fdK">
-                                <rect key="frame" x="122" y="300" width="187" height="76"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-RV-fdK">
+                                <rect key="frame" x="114" y="160" width="187" height="76"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="bHD-EY-U3D"/>
+                                    <constraint firstAttribute="height" constant="76" id="FdY-lX-gbB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Create Customer"/>
@@ -28,11 +28,11 @@
                                     <action selector="createCustomerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yYY-BA-jeQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZH-SS-SjQ">
-                                <rect key="frame" x="132" y="502" width="177" height="93"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HZH-SS-SjQ">
+                                <rect key="frame" x="119" y="382" width="177" height="93"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="93" id="3a1-rX-0cq"/>
+                                    <constraint firstAttribute="height" constant="93" id="qVq-1X-kaU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Pay Now"/>
@@ -40,27 +40,58 @@
                                     <action selector="payNow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cbZ-RT-LMG"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="TL3-uD-CbB">
-                                <rect key="frame" x="132" y="384" width="151" height="110"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="TL3-uD-CbB">
+                                <rect key="frame" x="132" y="255" width="151" height="110"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zA-8h-HFc">
+                                <rect key="frame" x="87" y="512" width="267" height="100"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="SfR-ki-qDv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Choose Payment Options"/>
+                                <connections>
+                                    <action selector="choosePaymentOptionsBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RB4-lU-5vD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWa-be-rr7">
+                                <rect key="frame" x="87" y="649" width="267" height="67"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="L28-xA-AHm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Shipping Button"/>
+                                <connections>
+                                    <action selector="shippingButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CKZ-8X-vnv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6tF-RV-fdK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="122" id="0w5-18-OFv"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6tF-RV-fdK" secondAttribute="trailing" constant="105" id="1hM-J9-m6Z"/>
-                            <constraint firstItem="TL3-uD-CbB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="4ez-8Q-5Ia"/>
-                            <constraint firstItem="HZH-SS-SjQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="A0I-Ji-Vnb"/>
-                            <constraint firstItem="6tF-RV-fdK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="256" id="C40-Gy-gdS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TL3-uD-CbB" secondAttribute="trailing" constant="131" id="CX9-Xh-7w6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HZH-SS-SjQ" secondAttribute="bottom" constant="267" id="GgC-Zf-RyH"/>
-                            <constraint firstItem="6tF-RV-fdK" firstAttribute="trailing" secondItem="HZH-SS-SjQ" secondAttribute="trailing" id="IUg-as-mfN"/>
-                            <constraint firstItem="TL3-uD-CbB" firstAttribute="top" secondItem="6tF-RV-fdK" secondAttribute="bottom" constant="8" id="fy2-Cr-bTu"/>
-                            <constraint firstItem="HZH-SS-SjQ" firstAttribute="top" secondItem="TL3-uD-CbB" secondAttribute="bottom" constant="8" id="pkp-ap-doK"/>
+                            <constraint firstItem="HZH-SS-SjQ" firstAttribute="top" secondItem="TL3-uD-CbB" secondAttribute="bottom" constant="17" id="35T-RM-Jf3"/>
+                            <constraint firstItem="8zA-8h-HFc" firstAttribute="leading" secondItem="LWa-be-rr7" secondAttribute="leading" id="3Ju-bL-GaU"/>
+                            <constraint firstItem="LWa-be-rr7" firstAttribute="top" secondItem="8zA-8h-HFc" secondAttribute="bottom" constant="37" id="D6D-j3-G4k"/>
+                            <constraint firstItem="6tF-RV-fdK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="114" id="HjW-jg-a8U"/>
+                            <constraint firstItem="6tF-RV-fdK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="116" id="InV-5g-Ydc"/>
+                            <constraint firstItem="HZH-SS-SjQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="119" id="IyU-yo-eXd"/>
+                            <constraint firstItem="6tF-RV-fdK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MXQ-Ci-UuI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8zA-8h-HFc" secondAttribute="trailing" constant="60" id="QEw-gX-GTH"/>
+                            <constraint firstItem="TL3-uD-CbB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="QWP-So-uMj"/>
+                            <constraint firstItem="8zA-8h-HFc" firstAttribute="top" secondItem="HZH-SS-SjQ" secondAttribute="bottom" constant="37" id="XqI-sl-CEN"/>
+                            <constraint firstItem="TL3-uD-CbB" firstAttribute="top" secondItem="6tF-RV-fdK" secondAttribute="bottom" constant="19" id="ZIF-tc-zzC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LWa-be-rr7" secondAttribute="bottom" constant="146" id="b3b-Vv-aX2"/>
+                            <constraint firstItem="8zA-8h-HFc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="87" id="ddB-rc-nGZ"/>
+                            <constraint firstItem="TL3-uD-CbB" firstAttribute="centerX" secondItem="HZH-SS-SjQ" secondAttribute="centerX" id="gF0-hy-FqZ"/>
+                            <constraint firstItem="8zA-8h-HFc" firstAttribute="trailing" secondItem="LWa-be-rr7" secondAttribute="trailing" id="ijX-3K-dUW"/>
+                            <constraint firstItem="6tF-RV-fdK" firstAttribute="centerX" secondItem="TL3-uD-CbB" secondAttribute="centerX" id="yuf-Hz-CoT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="TL3-uD-CbB" id="Vf8-SR-cSN"/>
+                        <outlet property="payNowButton" destination="HZH-SS-SjQ" id="AzK-m7-fhJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

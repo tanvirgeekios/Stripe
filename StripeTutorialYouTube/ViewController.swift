@@ -14,10 +14,17 @@ class ViewController: UIViewController, STPPaymentContextDelegate,showSpinnerDel
 
     var customerContext : STPCustomerContext?
     var paymentContext : STPPaymentContext?
-    var isSetShipping = true
+    var isSetShipping = false
     var showspinner = true
     
+    @IBOutlet weak var payNowButton: UIButton!
+    lazy var cardTextField: STPPaymentCardTextField = {
+            let cardTextField = STPPaymentCardTextField()
+            return cardTextField
+    }()
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,6 +41,7 @@ class ViewController: UIViewController, STPPaymentContextDelegate,showSpinnerDel
         self.paymentContext?.delegate = self
         self.paymentContext?.hostViewController = self
         self.paymentContext?.paymentAmount = 5000
+        payNowButton.isEnabled = paymentContext?.selectedPaymentOption != nil
     }
     
     func spinnerShouldStop() {
@@ -41,35 +49,50 @@ class ViewController: UIViewController, STPPaymentContextDelegate,showSpinnerDel
         activityIndicator.isHidden = true
     }
     
+    @IBAction func choosePaymentOptionsBtnTapped(_ sender: UIButton) {
+        self.paymentContext?.presentPaymentOptionsViewController()
+    }
+    
+    @IBAction func shippingButtonTapped(_ sender: UIButton) {
+        self.paymentContext?.presentShippingViewController()
+    }
+    
     @IBAction func createCustomerPressed(_ sender: UIButton) {
         MyAPIClient.createCustomer()
     }
     
     @IBAction func payNow(_ sender: UIButton) {
-        self.paymentContext?.presentPaymentOptionsViewController()
+        self.paymentContext?.requestPayment()
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
     }
     
     //DelegateFunctions
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        print("IN payment context did change result")
-        if paymentContext.selectedPaymentOption != nil && isSetShipping{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                paymentContext.presentShippingViewController()
-            }
-        }
         
-        if paymentContext.selectedShippingMethod != nil && !isSetShipping {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                
-                print("This is the ultimate FINAL")
-                self.paymentContext?.requestPayment()
-            }
-        }
+        //self.activityIndicator.animating = paymentContext.loading
+        self.payNowButton.isEnabled = paymentContext.selectedPaymentOption != nil
+        
+        
+//        print("IN payment context did change result")
+//        if paymentContext.selectedPaymentOption != nil && !isSetShipping{
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                paymentContext.presentShippingViewController()
+//            }
+//        }
+//
+//        if paymentContext.selectedShippingMethod != nil && isSetShipping {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//
+//                print("This is the ultimate FINAL")
+//                self.paymentContext?.requestPayment()
+//            }
+//        }
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didUpdateShippingAddress address: STPAddress, completion: @escaping STPShippingMethodsCompletionBlock) {
         
-        isSetShipping = false
+        isSetShipping = true
         
         let upsGround = PKShippingMethod()
         upsGround.amount = 0
@@ -129,15 +152,23 @@ class ViewController: UIViewController, STPPaymentContextDelegate,showSpinnerDel
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
         switch status {
             case .error:
-                print("Payment Not successfull")
+                showAlert(title: "Hello", messsage: "Payment was NOT successful")
             case .success:
-                print("Payment Successfull")
+                showAlert(title: "Hello", messsage: "Payment was Successful")
             case .userCancellation:
                 print("User Cancelled")
                 return // Do nothing
         }
+    }
+    
+    func showAlert(title:String,messsage:String){
+        let alert = UIAlertController(title: title, message: messsage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 
